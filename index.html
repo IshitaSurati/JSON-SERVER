@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JsonServer</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="pages/signup.html">Signup</a></li>
+            <li><a href="pages/login.html">Login</a></li>
+            <li><a href="pages/addProducts.html">Add Product</a></li>
+        </ul>
+    </nav>
+
+    <h1>User Signup</h1>
+    <form id="userData">
+        <input type="text" name="username" id="username" placeholder="Username" required>
+        <input type="email" name="email" id="email" placeholder="Email" required>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <input type="submit" value="Signup">
+    </form>
+
+    <h1>Product List</h1>
+    <div id="productList"></div>
+</body>
+<script type="module" src="/js/script.js"></script>
+</html>
