@@ -1,14 +1,20 @@
-import { login } from "../components/user.api.js";
+import { loginUser } from '/api/user.api.js';
 
-const handleData = (e) => {
+const handleLogin = async (e) => {
     e.preventDefault();
-
-    let user = {
-        email: document.getElementById('email').value,
-        password: document.getElementById('password').value
+    const user = {
+        email: document.getElementById('loginEmail').value,
+        password: document.getElementById('loginPassword').value
     };
 
-    login(user);
+    const loggedIn = await loginUser(user);
+
+    if (loggedIn) {
+        alert("Logged in successfully!");
+        // Redirect or perform other actions after login
+    } else {
+        alert("Incorrect email or password.");
+    }
 };
 
-document.getElementById("userData").addEventListener("submit", handleData);
+document.getElementById('loginForm').addEventListener('submit', handleLogin);
