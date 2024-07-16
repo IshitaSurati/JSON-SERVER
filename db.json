@@ -1,4 +1,24 @@
 {
-  "user": [],
-  "products": []
+  "user": [
+    {
+      "id": "dfa2",
+      "username": "ishita",
+      "email": "johndoe@example.com",
+      "password": "64564564"
+    },
+    {
+      "id": "88d2",
+      "username": "ishita",
+      "email": "ishita123@gmail.com",
+      "password": "12345"
+    }
+  ],
+  "products": [
+    {
+      "id": "2aad",
+      "name": "product1",
+      "price": "9000",
+      "quantity": "1"
+    }
+  ]
 }
