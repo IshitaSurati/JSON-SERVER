@@ -1,7 +1,7 @@
-import { createUser, loginUser, getUser } from "/api/user.api.js";
-import { createProduct, getProduct } from "/api/product.api.js";
+import { createUser, loginUser, getUser, updateUser, deleteUser } from "/api/user.api";
+import { createProduct, getProduct, updateProduct, deleteProduct } from "/api/product.api.js";
 
-// User Signup
+// Handle Signup
 const handleSignup = async (e) => {
     e.preventDefault();
     const user = {
@@ -10,14 +10,14 @@ const handleSignup = async (e) => {
         password: document.getElementById('password').value
     };
     await createUser(user);
-    window.location.href = 'index.html';
+    window.location.href = '/index.html';
 };
 
 if (document.getElementById("signupForm")) {
     document.getElementById("signupForm").addEventListener("submit", handleSignup);
 }
 
-// User Login
+// Handle Login
 const handleLogin = async (e) => {
     e.preventDefault();
     const user = {
@@ -32,7 +32,7 @@ if (document.getElementById("loginForm")) {
     document.getElementById("loginForm").addEventListener("submit", handleLogin);
 }
 
-// Product Input
+// Handle Product Input
 const handleProductInput = async (e) => {
     e.preventDefault();
     const product = {
@@ -62,13 +62,52 @@ const loadProducts = async () => {
                     <h5 class="card-title">${product.name}</h5>
                     <p class="card-text">Price: $${product.price}</p>
                     <p class="card-text">Quantity: ${product.quantity}</p>
+                    <button class="btn btn-primary update-product" data-id="${product.id}">Update</button>
+                    <button class="btn btn-danger delete-product" data-id="${product.id}">Delete</button>
                 </div>
             </div>
         `;
         productList.appendChild(productDiv);
     });
+
+    document.querySelectorAll(".update-product").forEach(button => {
+        button.addEventListener("click", async (e) => {
+            const id = e.target.dataset.id;
+            const product = products.find(p => p.id === id);
+            // Assume a modal or another form is used to update product details
+            document.getElementById('productName').value = product.name;
+            document.getElementById('productPrice').value = product.price;
+            document.getElementById('productQuantity').value = product.quantity;
+            document.getElementById('productId').value = product.id;
+        });
+    });
+
+    document.querySelectorAll(".delete-product").forEach(button => {
+        button.addEventListener("click", async (e) => {
+            const id = e.target.dataset.id;
+            await deleteProduct(id);
+            loadProducts();
+        });
+    });
 };
 
 if (document.getElementById("products")) {
     loadProducts();
+}
+
+// Update Product
+const handleProductUpdate = async (e) => {
+    e.preventDefault();
+    const product = {
+        id: document.getElementById('productId').value,
+        name: document.getElementById('productName').value,
+        price: document.getElementById('productPrice').value,
+        quantity: document.getElementById('productQuantity').value
+    };
+    await updateProduct(product);
+    loadProducts();
+};
+
+if (document.getElementById("productUpdateForm")) {
+    document.getElementById("productUpdateForm").addEventListener("submit", handleProductUpdate);
 }
