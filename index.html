@@ -3,19 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Json Server Website</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>JsonServer-Website</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div id="navbar"></div>
-    <div class="container">
-        <div id="productList" class="mb-4">
-            <h2>Products</h2>
-            <div id="products" class="row"></div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="search">
+            <input type="text" placeholder="Search...">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </div>
+        <div class="user-section" id="userList">
+            <!-- User list will be populated dynamically -->
         </div>
     </div>
-    <script src="/components/navbar.js" type="module"></script>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container mt-5">
+            <h1>Welcome to the Website</h1>
+            <form id="userData">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit" id="submit">Create User</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap and jQuery Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Your custom JavaScript file -->
     <script src="/js/index.js" type="module"></script>
 </body>
 </html>

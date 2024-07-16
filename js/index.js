@@ -1,113 +1,103 @@
-import { createUser, loginUser, getUser, updateUser, deleteUser } from "/api/user.api";
-import { createProduct, getProduct, updateProduct, deleteProduct } from "/api/product.api.js";
+import { Navbar } from "/components/navbar.js";
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('navbar').innerHTML = Navbar();
+});
 
-// Handle Signup
-const handleSignup = async (e) => {
+import { createUser, deleteUser, getUser, updateUser } from "/api/user.api.js";
+
+let id = -1;
+
+const handleData = (e) => {
     e.preventDefault();
-    const user = {
+
+    let user = {
         username: document.getElementById('username').value,
         email: document.getElementById('email').value,
         password: document.getElementById('password').value
     };
-    await createUser(user);
-    window.location.href = '/index.html';
+
+    if (id === -1) {
+        // Creating new user
+        createUser(user)
+            .then(() => {
+                clearForm();
+                fetchAndMapUsers();
+            })
+            .catch(error => console.error('Error creating user:', error));
+    } else {
+        // Updating existing user
+        updateUser(id, user)
+            .then(() => {
+                clearForm();
+                fetchAndMapUsers();
+                id = -1; // Reset id after update
+            })
+            .catch(error => console.error('Error updating user:', error));
+    }
 };
 
-if (document.getElementById("signupForm")) {
-    document.getElementById("signupForm").addEventListener("submit", handleSignup);
-}
-
-// Handle Login
-const handleLogin = async (e) => {
-    e.preventDefault();
-    const user = {
-        email: document.getElementById('loginEmail').value,
-        password: document.getElementById('loginPassword').value
-    };
-    await loginUser(user);
-    window.location.href = '/index.html';
+const updateInputValue = (ele) => {
+    document.getElementById('username').value = ele.username;
+    document.getElementById('email').value = ele.email;
+    document.getElementById('password').value = ele.password;
+    id = ele.id;
 };
 
-if (document.getElementById("loginForm")) {
-    document.getElementById("loginForm").addEventListener("submit", handleLogin);
-}
-
-// Handle Product Input
-const handleProductInput = async (e) => {
-    e.preventDefault();
-    const product = {
-        name: document.getElementById('productName').value,
-        price: document.getElementById('productPrice').value,
-        quantity: document.getElementById('productQuantity').value
-    };
-    await createProduct(product);
-    loadProducts();
+const fetchAndMapUsers = async () => {
+    try {
+        let data = await getUser();
+        clearUserList();
+        Mapper(data);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+    }
 };
 
-if (document.getElementById("productForm")) {
-    document.getElementById("productForm").addEventListener("submit", handleProductInput);
-}
-
-// Load Products
-const loadProducts = async () => {
-    const products = await getProduct();
-    const productList = document.getElementById("products");
-    productList.innerHTML = '';
-    products.forEach(product => {
-        const productDiv = document.createElement("div");
-        productDiv.classList.add("col-md-4", "mb-4");
-        productDiv.innerHTML = `
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">${product.name}</h5>
-                    <p class="card-text">Price: $${product.price}</p>
-                    <p class="card-text">Quantity: ${product.quantity}</p>
-                    <button class="btn btn-primary update-product" data-id="${product.id}">Update</button>
-                    <button class="btn btn-danger delete-product" data-id="${product.id}">Delete</button>
-                </div>
-            </div>
-        `;
-        productList.appendChild(productDiv);
-    });
-
-    document.querySelectorAll(".update-product").forEach(button => {
-        button.addEventListener("click", async (e) => {
-            const id = e.target.dataset.id;
-            const product = products.find(p => p.id === id);
-            // Assume a modal or another form is used to update product details
-            document.getElementById('productName').value = product.name;
-            document.getElementById('productPrice').value = product.price;
-            document.getElementById('productQuantity').value = product.quantity;
-            document.getElementById('productId').value = product.id;
+const Mapper = (data) => {
+    data.forEach((ele) => {
+        let username = document.createElement("h3");
+        username.innerHTML = ele.username;
+        let email = document.createElement("h4");
+        email.innerHTML = ele.email;
+        let password = document.createElement("p");
+        password.innerHTML = ele.password;
+        let update = document.createElement("button");
+        update.innerHTML = "Update User";
+        update.addEventListener("click", () => updateInputValue(ele));
+        let deleteUser = document.createElement("button");
+        deleteUser.innerHTML = "Delete User";
+        deleteUser.addEventListener("click", () => {
+            handleDeleteUser(ele.id);
         });
-    });
-
-    document.querySelectorAll(".delete-product").forEach(button => {
-        button.addEventListener("click", async (e) => {
-            const id = e.target.dataset.id;
-            await deleteProduct(id);
-            loadProducts();
-        });
+        let div = document.createElement("div");
+        div.append(username, email, password, update, deleteUser);
+        document.getElementById("userList").append(div);
     });
 };
 
-if (document.getElementById("products")) {
-    loadProducts();
-}
-
-// Update Product
-const handleProductUpdate = async (e) => {
-    e.preventDefault();
-    const product = {
-        id: document.getElementById('productId').value,
-        name: document.getElementById('productName').value,
-        price: document.getElementById('productPrice').value,
-        quantity: document.getElementById('productQuantity').value
-    };
-    await updateProduct(product);
-    loadProducts();
+const handleDeleteUser = (id) => {
+    deleteUser(id)
+        .then(() => {
+            clearUserList();
+            fetchAndMapUsers();
+            id = -1; // Reset id after delete if needed
+        })
+        .catch(error => console.error('Error deleting user:', error));
 };
 
-if (document.getElementById("productUpdateForm")) {
-    document.getElementById("productUpdateForm").addEventListener("submit", handleProductUpdate);
-}
+const clearForm = () => {
+    document.getElementById('username').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('password').value = '';
+    id = -1; // Reset id after form clear
+};
+
+const clearUserList = () => {
+    document.getElementById("userList").innerHTML = "";
+};
+
+// Initial load of users
+fetchAndMapUsers();
+
+// Event listener for form submission
+document.getElementById("userData").addEventListener("submit", handleData);

@@ -1,26 +1,18 @@
-import { loginUser } from "/api/user.api.js";
+import { login } from '../api/user.api.js';
 
-const handleLogin = async (e) => {
-    e.preventDefault();
-    
-    const user = {
-        email: document.getElementById('loginEmail').value,
-        password: document.getElementById('loginPassword').value
-    };
+document.getElementById('loginForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-    try {
-        const loggedIn = await loginUser(user);
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-        if (loggedIn) {
-            alert("Logged in successfully!");
-            window.location.href = "/index.html";
-        } else {
-            alert("Login failed. Please check your credentials.");
-        }
-    } catch (error) {
-        console.error('Login failed:', error.message);
-        alert("Login failed. Please try again later.");
+    const user = { email, password };
+    const result = await login(user);
+
+    if (result.success) {
+        alert('Login successful');
+        window.location.href = '/index.html';
+    } else {
+        alert('Login failed: ' + result.message);
     }
-};
-
-document.getElementById("loginForm").addEventListener("submit", handleLogin);
+});
