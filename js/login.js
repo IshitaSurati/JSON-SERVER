@@ -1,18 +1,21 @@
-import { login } from '../api/user.api.js';
+import { loginUser } from '../api/user.api.js';
 
-document.getElementById('loginForm').addEventListener('submit', async (event) => {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('loginForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const userEmail = document.getElementById('userEmail').value;
+        const userPassword = document.getElementById('userPassword').value;
 
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    const user = { email, password };
-    const result = await login(user);
-
-    if (result.success) {
-        alert('Login successful');
-        window.location.href = '/index.html';
-    } else {
-        alert('Login failed: ' + result.message);
-    }
+        try {
+            const loggedInUser = await loginUser(userEmail, userPassword);
+            if (loggedInUser) {
+                alert(`Welcome back, ${loggedInUser.name}!`);
+                window.location.href = '../index.html'; // Redirect to homepage after successful login
+            } else {
+                alert('Invalid email or password. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error logging in:', error);
+        }
+    });
 });

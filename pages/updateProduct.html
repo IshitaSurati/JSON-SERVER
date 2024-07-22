@@ -4,22 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
+    <title>Update Product</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
     <div class="container mt-5">
-        <h2>Add Product</h2>
-        <form id="addProductForm">
-            <input type="text" id="productName" placeholder="Product Name" class="form-control mb-2" required>
-            <input type="number" id="productPrice" placeholder="Price" class="form-control mb-2" required>
-            <input type="text" id="productCategory" placeholder="Category" class="form-control mb-2" required>
+        <h2>Update Product</h2>
+        <form id="updateProductForm">
+            <input type="hidden" id="productId" name="productId">
             <input type="url" id="img" placeholder="img" class="form-control mb-2" required>
+            <input type="text" id="productName" placeholder="Product Name" class="form-control mb-2" required>
             <textarea id="productDescription" placeholder="Description" class="form-control mb-2" required></textarea>
-            <button type="submit" class="btn btn-primary">Add Product</button>
+            <input type="number" id="productPrice" placeholder="Price" class="form-control mb-2" required>
+            <button type="submit" class="btn btn-warning">Update</button>
         </form>
     </div>
     <!-- Bootstrap and jQuery Scripts -->
@@ -27,7 +27,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Custom JavaScript -->
-    <script src="/js/addProduct.js" type="module"></script>
+    <script src="../js/updateProduct.js" type="module"></script>
 </body>
 
 </html>

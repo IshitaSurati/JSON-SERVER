@@ -1,57 +1,48 @@
-/* Updated Sidebar Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.navbar {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 250px;
-  background-color: #f0f0f0;
-  padding: 15px;
-  z-index: 1000; /* Ensure sidebar is above other content */
+    background-color: #ffffff;
+    border-right: 1px solid #dee2e6;
+    height: 100vh;
+    padding-top: 20px;
 }
 
 .sidebar .search {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
-.sidebar .search input[type="text"] {
-  width: calc(100% - 30px); /* Adjust width for padding */
-  padding: 8px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  display: inline-block;
-  border: 1px solid #ccc;
+.user-section {
+    margin-top: 40px;
 }
 
-.sidebar .search button {
-  padding: 8px;
-  border: none;
-  cursor: pointer;
-}
-
-.sidebar .user-info {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.sidebar .user-info img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.sidebar .user-info span {
-  font-weight: bold;
-}
-
-.sidebar .user-actions button {
-  margin-right: 5px;
-}
-
-/* Adjust Main Content Layout */
 .main-content {
-  margin-left: 250px; /* Ensure content doesn't overlap sidebar */
-  padding: 15px;
+    padding-top: 20px;
+}
+
+.card {
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.search .btn-info {
+    width: 100%;
+}
+
+.btn-warning,
+.btn-danger,
+.btn-primary,
+.btn-info {
+    margin-top: 5px;
 }
