@@ -1,33 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Product</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
-
 <body>
-    <div class="container mt-5">
-        <h2>Add Product</h2>
-        <form id="addProductForm">
-            <input type="text" id="productName" placeholder="Product Name" class="form-control mb-2" required>
-            <input type="number" id="productPrice" placeholder="Price" class="form-control mb-2" required>
-            <input type="text" id="productCategory" placeholder="Category" class="form-control mb-2" required>
-            <input type="url" id="img" placeholder="img" class="form-control mb-2" required>
-            <textarea id="productDescription" placeholder="Description" class="form-control mb-2" required></textarea>
-            <button type="submit" class="btn btn-primary">Add Product</button>
-        </form>
-    </div>
-    <!-- Bootstrap and jQuery Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Custom JavaScript -->
-    <script src="/js/addProduct.js" type="module"></script>
+    <!-- <div class="sidebar"></div> -->
+        <!-- Sidebar  dynamically inserted  -->
+    
+    <div class="form-container">
+    <form id="productData">
+        <input type="text" id="productName" placeholder="Enter Product Name" required>
+        <input type="number" id="price" placeholder="Enter Product Price" required>
+        <input type="text" id="category" placeholder="Enter Product Category" required>
+        <input type="file" id="image" accept="image/*" required>
+        <input type="submit" value="Add Product">
+    </form>
+</div>
 </body>
-
+<script type="module" src="/js/addProduct.js"></script>
 </html>

@@ -1,58 +1,65 @@
-const BASE_URL = 'http://localhost:3000/products';
+// /api/cart.api.js
+const API_URL = 'http://localhost:3000/cart';
 
-// Function to fetch cart items
-export const getCartItems = async () => {
-    const response = await fetch(`${BASE_URL}/cart`);
-    if (!response.ok) {
-        throw new Error('Failed to fetch cart items');
-    }
-    return await response.json();
-};
+export const addToCart = async (product) => {
+    try {
+        let cart = await getCart();
+        let cartItem = cart.find(item => item.id === product.id);
 
-// Function to add an item to the cart
-export const addToCart = async (itemId) => {
-    const response = await fetch(`${BASE_URL}/cart`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ itemId }),
-    });
-    if (!response.ok) {
-        throw new Error('Failed to add item to cart');
-    }
-};
-
-// Function to update an item in the cart
-export const updateCartItem = async (itemId, quantity) => {
-    const response = await fetch(`${BASE_URL}/cart/${itemId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ quantity }),
-    });
-    if (!response.ok) {
-        throw new Error('Failed to update cart item');
+        if (cartItem) {
+            cartItem.quantity += 1;
+            await updateCart(cartItem.id, 'update', cartItem);
+        } else {
+            product.quantity = 1;
+            await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(product)
+            });
+        }
+    } catch (error) {
+        console.error('Error:', error);
     }
 };
 
-// Function to remove an item from the cart
-export const removeFromCart = async (itemId) => {
-    const response = await fetch(`${BASE_URL}/cart/${itemId}`, {
-        method: 'DELETE',
-    });
-    if (!response.ok) {
-        throw new Error('Failed to remove item from cart');
+export const getCart = async () => {
+    try {
+        const response = await fetch(API_URL);
+        return await response.json();
+    } catch (error) {
+        console.error('Error:', error);
+        return [];
     }
 };
 
-// Function to clear the cart
-export const clearCart = async () => {
-    const response = await fetch(`${BASE_URL}/cart/clear`, {
-        method: 'DELETE',
-    });
-    if (!response.ok) {
-        throw new Error('Failed to clear cart');
+export const updateCart = async (id, action, updatedItem = null) => {
+    try {
+        if (action === 'remove') {
+            await fetch(`${API_URL}/${id}`, {
+                method: 'DELETE'
+            });
+        } else if (action === 'update' && updatedItem) {
+            await fetch(`${API_URL}/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedItem)
+            });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+
+export const getTotalPrice = async () => {
+    try {
+        let cart = await getCart();
+        return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    } catch (error) {
+        console.error('Error:', error);
+        return 0;
     }
 };

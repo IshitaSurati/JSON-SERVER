@@ -1,18 +1,29 @@
-import { createUser } from '../api/user.api.js';
+// /js/signup.js
+import { displaySidebar } from '../components/sidebar.js';
+import { createUser } from "../api/user.api.js";
+document.getElementById('sidebar').innerHTML = displaySidebar();
+const handleData = async (e) => {
+    e.preventDefault();
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('signupForm').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const userName = document.getElementById('userName').value;
-        const userEmail = document.getElementById('userEmail').value;
-        const userPassword = document.getElementById('userPassword').value;
+    let user = {
+        username: document.getElementById('username').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+    }
 
-        try {
-            await createUser({ name: userName, email: userEmail, password: userPassword });
-            alert('Signup successful!');
-            window.location.href = '../index.html'; // Redirect to homepage after successful signup
-        } catch (error) {
-            console.error('Error signing up:', error);
+    const imageInput = document.getElementById('image');
+    const imageFile = imageInput.files[0];
+
+    if (imageFile) {
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            user.image = event.target.result;
+            await createUser(user);
         }
-    });
-});
+        reader.readAsDataURL(imageFile);
+    } else {
+        await createUser(user);
+    }
+}
+
+document.getElementById("userData").addEventListener("submit", handleData);

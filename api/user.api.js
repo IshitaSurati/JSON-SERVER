@@ -1,67 +1,75 @@
-const BASE_URL = 'http://localhost:3000/user';
+// /api/user.api.js
+const API_URL = 'http://localhost:3000/user';
 
-// Function to fetch all users
-export const getUsers = async () => {
-    const response = await fetch(`${BASE_URL}/users`);
-    if (!response.ok) {
-        throw new Error('Failed to fetch users');
-    }
-    return await response.json();
-};
+export const createUser = async (user) => {
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        });
 
-// Function to fetch a single user by ID
-export const getUser = async (userId) => {
-    const response = await fetch(`${BASE_URL}/users/${userId}`);
-    if (!response.ok) {
-        throw new Error(`Failed to fetch user ${userId}`);
-    }
-    return await response.json();
-};
-
-// Function to create a new user
-export const createUser = async (userData) => {
-    const response = await fetch(`${BASE_URL}/users`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-    });
-    if (!response.ok) {
-        throw new Error('Failed to create user');
+        const data = await response.json();
+        localStorage.setItem('loggedInUser', JSON.stringify(data));
+        window.location.href = '/index.html';
+    } catch (error) {
+        console.error('Error:', error);
     }
 };
 
-// Function to update a user
-export const updateUser = async (userId, userData) => {
-    const response = await fetch(`${BASE_URL}/users/${userId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-    });
-    if (!response.ok) {
-        throw new Error(`Failed to update user ${userId}`);
+export const login = async (user) => {
+    try {
+        const response = await fetch(API_URL);
+        const users = await response.json();
+
+        const loggedInUser = users.find(u => u.email === user.email && u.password === user.password);
+
+        if (loggedInUser) {
+            localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+            window.location.href = '/index.html';
+        } else {
+            alert('Invalid email or password');
+        }
+    } catch (error) {
+        console.error('Error:', error);
     }
 };
 
-// Function to delete a user
-export const deleteUser = async (userId) => {
-    const response = await fetch(`${BASE_URL}/users/${userId}`, {
-        method: 'DELETE',
-    });
-    if (!response.ok) {
-        throw new Error(`Failed to delete user ${userId}`);
+export const getUserInfo = async () => {
+    try {
+        const user = JSON.parse(localStorage.getItem('loggedInUser'));
+        return user;
+    } catch (error) {
+        console.error('Error:', error);
     }
 };
 
-// Function to authenticate user login
-export const loginUser = async (email, password) => {
-    const response = await fetch(`${BASE_URL}/users?email=${email}&password=${password}`);
-    if (!response.ok) {
-        throw new Error('Login failed');
+export const deleteUser = async (id) => {
+    try {
+        await fetch(`${API_URL}/${id}`, {
+            method: 'DELETE'
+        });
+        localStorage.removeItem('loggedInUser');
+        window.location.href = '/signup.html';
+    } catch (error) {
+        console.error('Error:', error);
     }
-    const users = await response.json();
-    return users.length > 0 ? users[0] : null;
+};
+
+export const updateUser = async (user) => {
+    try {
+        await fetch(`${API_URL}/${user.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        });
+
+        localStorage.setItem('loggedInUser', JSON.stringify(user));
+    } catch (error) {
+        console.error('Error:', error);
+    }
 };

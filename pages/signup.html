@@ -1,31 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Sign Up</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
-
 <body>
-    <div class="container mt-5">
-        <h2>Signup</h2>
-        <form id="signupForm">
-            <input type="text" id="userName" placeholder="Name" class="form-control mb-2" required>
-            <input type="email" id="userEmail" placeholder="Email" class="form-control mb-2" required>
-            <input type="password" id="userPassword" placeholder="Password" class="form-control mb-2" required>
-            <button type="submit" class="btn btn-primary">Signup</button>
-        </form>
+    <div class="sidebar">
+        <!-- Sidebar  dynamically inserted  -->
     </div>
-    <!-- Bootstrap and jQuery Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Custom JavaScript -->
-    <script src="/js/signup.js" type="module"></script>
+    
+    <div class="form-container">
+    <form id="userData">
+        <input type="text" id="username" placeholder="Enter Your Name" required>
+        <input type="email" id="email" placeholder="Enter Your Email" required>
+        <input type="password" id="password" placeholder="Enter Your Password" required>
+        <input type="file" id="image" accept="image/*" required>
+        <input type="submit" value="Sign Up">
+    </form>
+</div>
 </body>
-
+<script type="module" src="/js/signup.js"></script>
 </html>
