@@ -1,5 +1,5 @@
 // /api/user.api.js
-const API_URL = 'http://localhost:3000/user';
+const API_URL = 'https://project-json-server-coov.onrender.com/user';
 
 export const createUser = async (user) => {
     try {
