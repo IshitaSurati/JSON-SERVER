@@ -1,11 +1,11 @@
 import { displaySidebar } from "../components/sidebar.js";
 import { getProducts } from "../api/product.api.js";
 import { addToCart } from "../api/cart.api.js";
+document.addEventListener('DOMContentLoaded', () => {
+    displaySidebar();
+});
 
 const init = async () => {
-    // Display the sidebar
-    await displaySidebar();
-
     // Display products
     const displayProducts = async () => {
         let products = await getProducts();
@@ -16,7 +16,7 @@ const init = async () => {
             productDiv.classList.add("product");
 
             productDiv.innerHTML = `
-                <img src="${product.image}" alt="${product.name}">
+                <img src="${product.image}" alt="${product.name}" style="max-width: 200px;">
                 <h3>${product.name}</h3>
                 <p>Price: $${product.price}</p>
                 <p>Category: ${product.category}</p>

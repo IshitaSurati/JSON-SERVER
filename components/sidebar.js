@@ -9,7 +9,7 @@ export const displaySidebar = async () => {
 
     userInfoDiv.innerHTML = `
         <img src="${user.image}" alt="${user.name}" class="user-image">
-        <h3 class="user-name">${user.name}</h3>
+        <h3 class="user-name">${user.username}</h3>
         <p class="user-email">${user.email}</p>
         <button id="update-user-btn" class="update-btn">Update</button>
         <button id="delete-user-btn" class="delete-btn">Delete</button>

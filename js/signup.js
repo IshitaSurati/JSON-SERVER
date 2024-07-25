@@ -1,29 +1,22 @@
-// /js/signup.js
 import { displaySidebar } from '../components/sidebar.js';
 import { createUser } from "../api/user.api.js";
-document.getElementById('sidebar').innerHTML = displaySidebar();
+
+document.addEventListener('DOMContentLoaded', () => {
+    displaySidebar();
+});
+
 const handleData = async (e) => {
     e.preventDefault();
 
     let user = {
         username: document.getElementById('username').value,
         email: document.getElementById('email').value,
-        password: document.getElementById('password').value
-    }
+        password: document.getElementById('password').value,
+        image: document.getElementById('image').value // Get the image URL from the input
+    };
 
-    const imageInput = document.getElementById('image');
-    const imageFile = imageInput.files[0];
-
-    if (imageFile) {
-        const reader = new FileReader();
-        reader.onload = async (event) => {
-            user.image = event.target.result;
-            await createUser(user);
-        }
-        reader.readAsDataURL(imageFile);
-    } else {
-        await createUser(user);
-    }
+    await createUser(user);
+    location.reload();
 }
 
 document.getElementById("userData").addEventListener("submit", handleData);

@@ -1,5 +1,5 @@
 // /api/cart.api.js
-const API_URL = 'https://project-json-server-coov.onrender.com/cart';
+const API_URL = 'http://localhost:3000/cart';
 
 export const addToCart = async (product) => {
     try {

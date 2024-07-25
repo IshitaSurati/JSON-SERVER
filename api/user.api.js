@@ -1,5 +1,5 @@
 // /api/user.api.js
-const API_URL = 'https://project-json-server-coov.onrender.com/user';
+const API_URL = 'http://localhost:3000/user';
 
 export const createUser = async (user) => {
     try {
@@ -52,7 +52,7 @@ export const deleteUser = async (id) => {
             method: 'DELETE'
         });
         localStorage.removeItem('loggedInUser');
-        window.location.href = '/signup.html';
+        window.location.href = '/pages/signup.html';
     } catch (error) {
         console.error('Error:', error);
     }

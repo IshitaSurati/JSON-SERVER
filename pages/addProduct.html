@@ -7,18 +7,18 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <!-- <div class="sidebar"></div> -->
-        <!-- Sidebar  dynamically inserted  -->
+    <div class="sidebar"></div>
+        <!-- Sidebar dynamically inserted -->
     
     <div class="form-container">
-    <form id="productData">
-        <input type="text" id="productName" placeholder="Enter Product Name" required>
-        <input type="number" id="price" placeholder="Enter Product Price" required>
-        <input type="text" id="category" placeholder="Enter Product Category" required>
-        <input type="file" id="image" accept="image/*" required>
-        <input type="submit" value="Add Product">
-    </form>
-</div>
+        <form id="productData">
+            <input type="text" id="productName" placeholder="Enter Product Name" required>
+            <input type="number" id="price" placeholder="Enter Product Price" required>
+            <input type="text" id="category" placeholder="Enter Product Category" required>
+            <input type="url" id="image" placeholder="Enter Image URL" required>
+            <input type="submit" value="Add Product">
+        </form>
+    </div>
 </body>
 <script type="module" src="/js/addProduct.js"></script>
 </html>
