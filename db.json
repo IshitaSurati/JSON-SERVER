@@ -6,6 +6,20 @@
       "email": "ishita123@gmail.com",
       "password": "12345",
       "image": "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
+    },
+    {
+      "id": "89f0",
+      "username": "ishita",
+      "email": "ishita123@gmail.com",
+      "password": "12345",
+      "image": "https://cdn.pixabay.com/photo/2022/03/29/03/40/food-7098703_1280.jpg"
+    },
+    {
+      "id": "22f5",
+      "username": "ishita",
+      "email": "admin@example.com",
+      "password": "12345",
+      "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTqb04xeHENee2o2jm18PRl6rD8nyh6KWDoPpbuScB5irCfnDHtPopBg01MAJGFiSAKOQ6mbnwHCMosoTFB7f1ffFYAZUKNdyKevZj0N2Ck4sziuIejVjUPwA"
     }
   ],
   "products": [
@@ -54,20 +68,12 @@
   ],
   "cart": [
     {
-      "id": "c6ec",
-      "name": "product1",
-      "price": "800",
-      "category": "women",
-      "image": "https://cdn.pixabay.com/photo/2021/01/25/11/29/woman-5948094_640.jpg",
-      "quantity": 1
-    },
-    {
       "id": "3eb8",
       "name": "product2",
       "price": "300",
       "category": "kids",
       "image": "https://cdn.pixabay.com/photo/2022/05/31/09/37/toddler-7233172_640.jpg",
-      "quantity": 1
+      "quantity": 2
     },
     {
       "id": "68a0",

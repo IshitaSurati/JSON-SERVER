@@ -39,7 +39,7 @@ const openUpdateModal = (user) => {
     const updateModal = document.getElementById("update-modal");
     const updateForm = document.getElementById("update-form");
 
-    updateForm.name.value = user.name;
+    updateForm.username.value = user.username;
     updateForm.email.value = user.email;
     updateForm.image.value = user.image;
 
@@ -50,7 +50,7 @@ const openUpdateModal = (user) => {
 
         const updatedUser = {
             id: user.id,
-            name: updateForm.name.value,
+            username: updateForm.username.value,
             email: updateForm.email.value,
             image: updateForm.image.value
         };
